@@ -1,4 +1,4 @@
-package net.azarquiel.appretrofitsteamapidrive
+package net.azarquiel.appretrofitsteamapidrive.activity
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import net.azarquiel.appretrofitsteamapidrive.R
 
 class MainActivity : AppCompatActivity() {
 
