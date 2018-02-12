@@ -31,4 +31,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // 1º Dependencias Retrofix junto con el convertidor Gson
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+    // Programación Reactiva
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+
+    //anko
+    compile "org.jetbrains.anko:anko-common:$anko_version"
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }

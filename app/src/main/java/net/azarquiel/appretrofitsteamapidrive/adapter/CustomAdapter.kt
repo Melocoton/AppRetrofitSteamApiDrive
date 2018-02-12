@@ -1,0 +1,44 @@
+package net.azarquiel.appretrofitsteamapidrive.adapter
+
+import android.content.Context
+import android.support.v7.widget.RecyclerView
+import net.azarquiel.appretrofitsteamapidrive.activity.MainActivity
+import net.azarquiel.appretrofitsteamapidrive.model.Juego
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.view.View
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.row_main.view.*
+
+/**
+ * Created by Oscar on 12/02/2018.
+ */
+class CustomAdapter (val context: Context, val layout:Int, val dataList: List<Juego>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val viewLayout = layoutInflater.inflate(layout, parent, false)
+        return ViewHolder(viewLayout, context)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = dataList[position]
+        holder.bind(item)
+    }
+
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
+
+    class  ViewHolder(viewLayout: View, val context: Context) : RecyclerView.ViewHolder(viewLayout) {
+        fun bind(dataItem: Juego) {
+
+            itemView.imgLogo
+            Picasso.with(context).load(dataItem.Imagen).into(itemView.imgLogo)
+
+        }
+
+    }
+
+}
