@@ -19,7 +19,7 @@ data class Data(val name:String,
                 val website:String)
 
 // Class para la SteamGamesApi
-data class Juego(val appID:String,
+data class Juego(val AppID:String,
                  val Nombre:String,
                  val Descripcion:String,
                  val Imagen:String,
