@@ -3,12 +3,15 @@ package net.azarquiel.appretrofitsteamapidrive.activity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import net.azarquiel.appretrofitsteamapidrive.R
+import net.azarquiel.appretrofitsteamapidrive.adapter.CustomAdapter
 import net.azarquiel.appretrofitsteamapidrive.api.SteamGamesApiService
 import net.azarquiel.appretrofitsteamapidrive.model.Juego
 import retrofit2.Call
@@ -30,25 +33,57 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        testApi()
+        //testApi()
+        getGamesApi()
 
     }
 
-    private fun testApi() {
-
+    private fun getGamesApi(){
+        //preparamos retrofit
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://estomelohancambiado.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val cliente: SteamGamesApiService = retrofit.create(SteamGamesApiService::class.java)
+
+        //preparamos la llamada de la peticion get
         val llamada: Call<List<Juego>> = cliente.listaJuegos()
 
+        doAsync {
+            val lista = llamada.execute().body()
+            uiThread {
+                cargarDatos(lista)
+            }
+        }
+    }
+
+    private fun cargarDatos(lista: List<Juego>){
+        var adapter = CustomAdapter(this,R.layout.row_main, lista)
+        rvJuegos.layoutManager = LinearLayoutManager(this)
+        rvJuegos.adapter = adapter
+    }
+
+    private fun testApi() {
+
+        //preparamos retrofit
+        val retrofit = Retrofit.Builder()
+                .baseUrl("http://estomelohancambiado.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        val cliente: SteamGamesApiService = retrofit.create(SteamGamesApiService::class.java)
+
+        //preparamos la llamada de la peticion get
+        val llamada: Call<List<Juego>> = cliente.listaJuegos()
+
+        //preparamos la llamada de la peticion post
         val appid = "-2"
         val nombre = "test2"
         val descripcion = "test2"
         val imagen = "test2"
         val website = "test2"
         val llamada2: Call<String> = cliente.ponerJuego(appid,nombre,descripcion,imagen,website)
+
+        //lanzamos las peticiones en un hilo y mostramos el resultado
         doAsync {
             val respuesta = llamada2.execute().body()
             val listaJuego = llamada.execute().body()

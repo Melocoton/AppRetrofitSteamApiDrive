@@ -20,6 +20,7 @@ interface SteamGamesApiService {
     //peticion post, mete los datos que le indiquemos con @Field para indicar cada paramtetro o
     //con @Body para serializar un objeto (en este caso usamos field porque los parametros
     //son distintos de las propiedades del objeto Juego
+    //antes de poner un parametro hay que quitar las comillas simples
     @POST("/steamgames/api.php?op=putGame")
     @FormUrlEncoded //esto es necesario
     fun ponerJuego(
