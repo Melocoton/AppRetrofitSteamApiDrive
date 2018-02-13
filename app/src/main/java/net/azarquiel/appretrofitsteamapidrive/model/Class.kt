@@ -1,6 +1,7 @@
 package net.azarquiel.appretrofitsteamapidrive.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by Oscar on 11/02/2018.
@@ -23,7 +24,7 @@ data class Juego(val AppID:String,
                  val Nombre:String,
                  val Descripcion:String,
                  val Imagen:String,
-                 val Link:String)
+                 val Link:String) : Serializable
 
 
 //// Class para la SteamServiceDriveGet Get todos nuestros pokemos de Drive

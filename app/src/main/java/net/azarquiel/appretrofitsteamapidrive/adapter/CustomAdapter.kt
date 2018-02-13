@@ -1,5 +1,6 @@
 package net.azarquiel.appretrofitsteamapidrive.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import net.azarquiel.appretrofitsteamapidrive.activity.MainActivity
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.view.View
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_main.view.*
+import net.azarquiel.appretrofitsteamapidrive.activity.DetailActivity
 
 /**
  * Created by Oscar on 12/02/2018.
@@ -37,6 +39,14 @@ class CustomAdapter (val context: Context, val layout:Int, val dataList: List<Ju
             itemView.imgLogo
             Picasso.with(context).load(dataItem.Imagen).into(itemView.imgLogo)
 
+            itemView.setOnClickListener({ onItemClick(dataItem)})
+
+        }
+
+        private fun onItemClick(dataItem: Juego){
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("juegoPulsado", dataItem)
+            context.startActivity(intent)
         }
 
     }
