@@ -14,7 +14,7 @@ import rx.Observable
 interface SteamApiService {
 
     @GET("ISteamApps/GetAppList/v0002/")
-    fun listaJuegos(): Call<List<Games>>
+    fun listaJuegos(): Call<Games>
 
 //    companion object {
 //        fun create(): SteamApiService {

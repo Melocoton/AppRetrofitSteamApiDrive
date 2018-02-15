@@ -1,9 +1,7 @@
 package net.azarquiel.appretrofitsteamapidrive.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import net.azarquiel.appretrofitsteamapidrive.activity.MainActivity
 import net.azarquiel.appretrofitsteamapidrive.model.Juego
 import android.content.Intent
 import android.view.LayoutInflater
@@ -16,7 +14,7 @@ import net.azarquiel.appretrofitsteamapidrive.activity.DetailActivity
 /**
  * Created by Oscar on 12/02/2018.
  */
-class CustomAdapter (val context: Context, val layout:Int, val dataList: List<Juego>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+class AdapterMain(val context: Context, val layout:Int, val dataList: List<Juego>) : RecyclerView.Adapter<AdapterMain.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

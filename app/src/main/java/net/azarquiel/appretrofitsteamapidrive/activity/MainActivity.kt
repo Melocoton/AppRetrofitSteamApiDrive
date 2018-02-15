@@ -3,18 +3,16 @@ package net.azarquiel.appretrofitsteamapidrive.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import net.azarquiel.appretrofitsteamapidrive.R
-import net.azarquiel.appretrofitsteamapidrive.adapter.CustomAdapter
+import net.azarquiel.appretrofitsteamapidrive.adapter.AdapterMain
 import net.azarquiel.appretrofitsteamapidrive.api.SteamGamesApiService
 import net.azarquiel.appretrofitsteamapidrive.model.Juego
 import retrofit2.Call
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun cargarDatos(lista: List<Juego>){
-        var adapter = CustomAdapter(this,R.layout.row_main, lista)
+        var adapter = AdapterMain(this,R.layout.row_main, lista)
         rvJuegos.layoutManager = LinearLayoutManager(this)
         rvJuegos.adapter = adapter
     }
