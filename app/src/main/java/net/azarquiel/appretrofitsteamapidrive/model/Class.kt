@@ -15,7 +15,8 @@ data class Game(val appid:String,
 // Class para la SteamStoreService Get un solo game
 data class GameStore(val data:Data)
 data class Data(val name:String,
-                val short_description:String,
+                val steam_appid:String,
+                val about_the_game:String,
                 val header_image:String,
                 val website:String)
 

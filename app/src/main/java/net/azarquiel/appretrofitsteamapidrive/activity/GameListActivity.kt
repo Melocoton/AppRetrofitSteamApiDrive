@@ -26,7 +26,7 @@ class GameListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gamelist)
 
-        testApi()
+        //testApi()
         cargarLista()
 
     }
@@ -43,7 +43,7 @@ class GameListActivity : AppCompatActivity() {
         doAsync {
             val resultado = llamada.execute().body()
             uiThread {
-                Log.d("###", resultado.toString())
+                //Log.d("###", resultado.toString())
                 //resultado[0].applist.apps[0].name
                 val listaJuegos = resultado.applist.apps
                 cargarApps(listaJuegos)

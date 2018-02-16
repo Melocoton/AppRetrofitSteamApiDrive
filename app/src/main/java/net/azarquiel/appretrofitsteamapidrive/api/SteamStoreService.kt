@@ -1,8 +1,11 @@
 package net.azarquiel.appretrofitsteamapidrive.api
 
 import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Query
 import rx.Observable
@@ -10,8 +13,6 @@ import rx.Observable
 /**
  * Created by Oscar on 08/02/2018.
  */
-interface SteamStoreService {
-
     // Esta interface es un poco especial. Como el Json que obtenemos
 // no nos gusta y deseamos quitarle contenido:
     /**quitamos GsonConverterFactory*/// para que no actúe GSON
@@ -22,19 +23,19 @@ interface SteamStoreService {
     interface SteamStoreService {
 
         @GET("appdetails/") // ?appids=appid
-        fun getData(@Query("appids") appid: String): Observable<ResponseBody>
+        fun getData(@Query("appids") appid: String): Call<ResponseBody>
 
-        companion object {
-            fun create(): SteamStoreService {
-                val retrofit = Retrofit.Builder()
-//                    .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                        .baseUrl("http://store.steampowered.com/api/")
-                        .build()
-                return retrofit.create(SteamStoreService::class.java)
-            }
-        }
+        //fun getData(@Query("appids") appid: String): Observable<ResponseBody>
+
+//        companion object {
+//            fun create(): SteamStoreService {
+//                val retrofit = Retrofit.Builder()
+////                    .addConverterFactory(GsonConverterFactory.create())
+//                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                        .baseUrl("http://store.steampowered.com/api/")
+//                        .build()
+//                return retrofit.create(SteamStoreService::class.java)
+//            }
+//        }
 
     }
-
-}
