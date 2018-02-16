@@ -2,19 +2,17 @@ package net.azarquiel.appretrofitsteamapidrive.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import net.azarquiel.appretrofitsteamapidrive.activity.MainActivity
-import net.azarquiel.appretrofitsteamapidrive.model.Juego
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.row_main.view.*
+import net.azarquiel.appretrofitsteamapidrive.model.Game
+import kotlinx.android.synthetic.main.row_gamelist.view.*
 
 /**
- * Created by Oscar on 12/02/2018.
+ * Created by Oscar on 15/02/2018.
  */
-class CustomAdapter (val context: Context, val layout:Int, val dataList: List<Juego>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(){
+class AdapterGameList (val context: Context, val layout:Int, val dataList: List<Game>) : RecyclerView.Adapter<AdapterGameList.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,11 +29,21 @@ class CustomAdapter (val context: Context, val layout:Int, val dataList: List<Ju
         return dataList.size
     }
 
-    class  ViewHolder(viewLayout: View, val context: Context) : RecyclerView.ViewHolder(viewLayout) {
-        fun bind(dataItem: Juego) {
+    inner class ViewHolder(viewLayout: View, val context: Context) : RecyclerView.ViewHolder(viewLayout) {
 
-            itemView.imgLogo
-            Picasso.with(context).load(dataItem.Imagen).into(itemView.imgLogo)
+        fun bind(dataItem: Game) {
+
+            //Log.d("#lista", dataItem.toString())
+            itemView.txtTituloJuego.text = dataItem.name
+
+
+            itemView.setOnClickListener({ onItemClick(dataItem) })
+
+        }
+
+        private fun onItemClick(dataItem: Game) {
+
+
 
         }
 
