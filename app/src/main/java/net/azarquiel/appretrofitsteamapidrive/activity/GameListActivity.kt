@@ -48,7 +48,9 @@ class GameListActivity : AppCompatActivity() {
                 //Log.d("###", resultado.toString())
                 //resultado[0].applist.apps[0].name
                 val listaJuegos = resultado.response.games
-                cargarApps(listaJuegos)
+                val listaJuegosOrdenada = listaJuegos.sortedWith(compareBy({it.appid.toInt()}))
+                Log.d("###", listaJuegosOrdenada.toString())
+                cargarApps(listaJuegosOrdenada)
             }
         }
     }
