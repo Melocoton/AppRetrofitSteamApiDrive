@@ -10,6 +10,7 @@ import net.azarquiel.appretrofitsteamapidrive.adapter.AdapterGameList
 import net.azarquiel.appretrofitsteamapidrive.api.SteamApiService
 import net.azarquiel.appretrofitsteamapidrive.model.Games
 import net.azarquiel.appretrofitsteamapidrive.model.Game
+import net.azarquiel.appretrofitsteamapidrive.model.Respuesta
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import retrofit2.Call
@@ -38,14 +39,15 @@ class GameListActivity : AppCompatActivity() {
                 .build()
         val cliente: SteamApiService = retrofit.create(SteamApiService::class.java)
 
-        val llamada: Call<Games> = cliente.listaApps()
+        //val llamada: Call<Games> = cliente.listaApps()
+        val llamada: Call<Respuesta> = cliente.listaGames()
 
         doAsync {
             val resultado = llamada.execute().body()
             uiThread {
                 //Log.d("###", resultado.toString())
                 //resultado[0].applist.apps[0].name
-                val listaJuegos = resultado.applist.apps
+                val listaJuegos = resultado.response.games
                 cargarApps(listaJuegos)
             }
         }
@@ -64,14 +66,15 @@ class GameListActivity : AppCompatActivity() {
                 .build()
         val cliente: SteamApiService = retrofit.create(SteamApiService::class.java)
 
-        val llamada: Call<Games> = cliente.listaApps()
+        //val llamada: Call<Games> = cliente.listaApps()
+        val llamada: Call<Respuesta> = cliente.listaGames()
 
         doAsync {
             val resultado = llamada.execute().body()
             uiThread {
                 Log.d("###", resultado.toString())
                 //resultado[0].applist.apps[0].name
-                val listaJuegos = resultado.applist.apps
+                val listaJuegos = resultado.response.games
             }
         }
     }

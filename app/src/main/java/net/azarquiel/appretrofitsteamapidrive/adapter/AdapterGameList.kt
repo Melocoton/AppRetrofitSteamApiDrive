@@ -19,6 +19,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
+import com.squareup.picasso.Picasso
 
 
 /**
@@ -47,6 +48,8 @@ class AdapterGameList (val context: Context, val layout:Int, val dataList: List<
 
             //Log.d("#lista", dataItem.toString())
             itemView.txtTituloJuego.text = dataItem.name
+            val url = "http://media.steampowered.com/steamcommunity/public/images/apps/${dataItem.appid}/${dataItem.img_icon_url}.jpg"
+            Picasso.with(context).load(url).into(itemView.imgIcon)
 
             //esto no se puede hacer porque hay un limite de llamadas por tiempo
 //            val retrofit = Retrofit.Builder()

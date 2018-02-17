@@ -14,7 +14,7 @@ data class Game(val appid:String,
                 val img_icon_url:String)
 
 // Class para la SteamApiService Get todos los juegos
-data class respuesta(val response: Juegos)
+data class Respuesta(val response: Juegos)
 data class Juegos(val games:List<Game>)
 
 // Class para la SteamStoreService Get un solo game
