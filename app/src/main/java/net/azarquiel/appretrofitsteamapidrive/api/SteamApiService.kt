@@ -13,8 +13,11 @@ import rx.Observable
  */
 interface SteamApiService {
 
-    @GET("ISteamApps/GetAppList/v0002/")
-    fun listaJuegos(): Call<Games>
+    @GET("ISteamApps/GetAppList/v2")
+    fun listaApps(): Call<Games>
+
+    @GET("IPlayerService/GetOwnedGames/v0001/?key=91EB0D3B50B84C166A5C1CCEC6FBCEE8&steamid=76561197979408421&include_appinfo=1&include_played_free_games=1")
+    fun listaGames()
 
 //    companion object {
 //        fun create(): SteamApiService {

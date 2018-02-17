@@ -6,11 +6,16 @@ import java.io.Serializable
 /**
  * Created by Oscar on 11/02/2018.
  */
-// Class para la SteamApiService Get todos los games
+// Class para la SteamApiService Get todas las apps
 data class Games(val applist:Apps)
 data class Apps(val apps:List<Game>)
 data class Game(val appid:String,
-                val name:String)
+                val name:String,
+                val img_icon_url:String)
+
+// Class para la SteamApiService Get todos los juegos
+data class respuesta(val response: Juegos)
+data class Juegos(val games:List<Game>)
 
 // Class para la SteamStoreService Get un solo game
 data class GameStore(val data:Data)

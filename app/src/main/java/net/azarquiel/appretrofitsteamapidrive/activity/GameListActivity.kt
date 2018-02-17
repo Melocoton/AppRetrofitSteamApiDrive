@@ -38,7 +38,7 @@ class GameListActivity : AppCompatActivity() {
                 .build()
         val cliente: SteamApiService = retrofit.create(SteamApiService::class.java)
 
-        val llamada: Call<Games> = cliente.listaJuegos()
+        val llamada: Call<Games> = cliente.listaApps()
 
         doAsync {
             val resultado = llamada.execute().body()
@@ -64,7 +64,7 @@ class GameListActivity : AppCompatActivity() {
                 .build()
         val cliente: SteamApiService = retrofit.create(SteamApiService::class.java)
 
-        val llamada: Call<Games> = cliente.listaJuegos()
+        val llamada: Call<Games> = cliente.listaApps()
 
         doAsync {
             val resultado = llamada.execute().body()
