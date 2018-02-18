@@ -19,7 +19,11 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
+import android.widget.Toast
 import com.squareup.picasso.Picasso
+import net.azarquiel.appretrofitsteamapidrive.api.SteamGamesApiService
+import net.azarquiel.appretrofitsteamapidrive.model.Data
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -30,6 +34,7 @@ class AdapterGameList (val context: Context, val layout:Int, val dataList: List<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val viewLayout = layoutInflater.inflate(layout, parent, false)
+
         return ViewHolder(viewLayout, context)
     }
 
@@ -51,26 +56,6 @@ class AdapterGameList (val context: Context, val layout:Int, val dataList: List<
             val url = "http://media.steampowered.com/steamcommunity/public/images/apps/${dataItem.appid}/${dataItem.img_icon_url}.jpg"
             Picasso.with(context).load(url).into(itemView.imgIcon)
 
-            //esto no se puede hacer porque hay un limite de llamadas por tiempo
-//            val retrofit = Retrofit.Builder()
-//                    .baseUrl("http://store.steampowered.com/api/")
-//                    .build()
-//            val cliente: SteamStoreService = retrofit.create(SteamStoreService::class.java)
-//            val llamada: Call<ResponseBody> = cliente.getData(dataItem.appid)
-//
-//            doAsync {
-//                val resultado = llamada.execute().body().string()
-//                uiThread {
-//                    if (comprobarJuego(resultado)){
-//                        //itemView.txtTituloJuego.setTextColor(getResources().getColor(R.color.colorGreen))
-//                        itemView.txtTituloJuego.setTextColor(ContextCompat.getColor(context, R.color.colorGreen))
-//                        //itemView.setOnClickListener({ onItemClick(dataItem) })
-//                    }else{
-//                        itemView.txtTituloJuego.setTextColor(ContextCompat.getColor(context, R.color.colorRed))
-//                    }
-//                }
-//            }
-
             itemView.setOnClickListener({ onItemClick(dataItem) })
 
         }
@@ -88,15 +73,41 @@ class AdapterGameList (val context: Context, val layout:Int, val dataList: List<
                 val resultado = llamada.execute().body().string()
                 uiThread {
                     Log.d("###", resultado)
-                    if (resultado.contains("\"success\":true")){
-                        Log.d("###", "true")
-                        val json = limpiaString(resultado)
-                        Log.d("###", json)
-                        //val juego: GameStore = Gson().toJson(json, GameStore::class.java)
-                    }
+                    val json = limpiaString(resultado)
+                    val juego:GameStore = Gson().fromJson(json, GameStore::class.java)
+                    Log.d("###", juego.data.toString())
+                    guardarJuego(juego.data)
+
+//                    if (resultado.contains("\"success\":true")){
+//                        Log.d("###", "true")
+//                        val json = limpiaString(resultado)
+//                        Log.d("###", json)
+//                        //val juego: GameStore = Gson().toJson(json, GameStore::class.java)
+//                        val juego:GameStore = Gson().fromJson(json, GameStore::class.java)
+//                        Log.d("###", juego.toString())
+//                    }
                 }
             }
 
+        }
+
+        private fun guardarJuego(juego:Data){
+            val retrofit = Retrofit.Builder()
+                    .baseUrl("http://estomelohancambiado.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            val cliente: SteamGamesApiService = retrofit.create(SteamGamesApiService::class.java)
+            val llamada: Call<String> = cliente.ponerJuego(juego.steam_appid,juego.name,
+                    juego.about_the_game.replace("'",""),juego.header_image,juego.website)
+            doAsync {
+                val respuesta = llamada.execute().body()
+                Log.d("###", respuesta)
+                uiThread {
+                    if (respuesta.equals("true")){
+                        Toast.makeText(context, "Juego añadido", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         private fun limpiaString(json:String): String {
@@ -108,12 +119,12 @@ class AdapterGameList (val context: Context, val layout:Int, val dataList: List<
             return newjson
         }
 
-        private fun comprobarJuego(resultado: String): Boolean{
-            if (resultado.contains("\"success\":true"))
-                return true
-
-            return false
-        }
+//        private fun comprobarJuego(resultado: String): Boolean{
+//            if (resultado.contains("\"success\":true"))
+//                return true
+//
+//            return false
+//        }
 
     }
 
